@@ -1,0 +1,36 @@
+---
+output: github_document
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+# Análise Álysse e Lizandra
+
+## Carregando pacotes
+
+```{r,message=FALSE,error=FALSE,warning=FALSE}
+library(readxl)
+library(tidyverse)
+```
+
+
+## Entrada de dados
+
+```{r,message=FALSE,error=FALSE,warning=FALSE}
+macro<- read_excel("data/Analise morfo macro.xlsx",na = "NA") |> 
+  janitor::clean_names()
+glimpse(macro)
+```
+
+```{r,message=FALSE,error=FALSE,warning=FALSE}
+micro<- read_excel("data/Analise morfo micro.xlsx",na = "NA")|> 
+  janitor::clean_names()
+glimpse(micro)
+```
