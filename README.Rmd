@@ -18,6 +18,7 @@ knitr::opts_chunk$set(
 ```{r,message=FALSE,error=FALSE,warning=FALSE}
 library(readxl)
 library(tidyverse)
+library(ExpDes.pt)
 ```
 
 
@@ -34,3 +35,28 @@ micro<- read_excel("data/Analise morfo micro.xlsx",na = "NA")|>
   janitor::clean_names()
 glimpse(micro)
 ```
+
+
+## Análise para MACRO
+
+```{r}
+for(i in 4:length(macro)){
+  y <- macro[i] |>  pull()
+  print("######################################")
+  print(paste0("Análise para: ",names(macro[i])))
+  print("######################################")
+  criptorquida <- macro[2] |>  pull() |> as.factor()
+  dic(criptorquida[!is.na(y)], y[!is.na(y)])
+  }
+```
+
+
+
+
+
+
+
+
+
+
+
