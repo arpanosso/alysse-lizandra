@@ -13,6 +13,13 @@ knitr::opts_chunk$set(
 
 # Análise Álysse e Lizandra
 
+## Citação do R
+
+```{r}
+citation()
+```
+
+
 ## Carregando pacotes
 
 ```{r,message=FALSE,error=FALSE,warning=FALSE}
@@ -51,9 +58,32 @@ for(i in 4:length(macro)){
 ```
 
 
+## Análise para MICRO
 
+```{r}
+micro_aux <- micro |> 
+  group_by(nome, criptorquida) |> 
+  summarise(
+    al_ta_test = mean(al_ta_test, na.rm=TRUE),
+    diam_ts_test = mean(diam_ts_test, na.rm=TRUE),
+    ept_ts_test = mean(ept_ts_test, na.rm=TRUE),
+    diam_co_ep = mean(diam_co_ep, na.rm=TRUE),
+    ept_co_ep = mean(ept_co_ep, na.rm=TRUE),
+    diam_ca_ep = mean(diam_ca_ep, na.rm=TRUE),
+    ept_ca_ep = mean(ept_ca_ep, na.rm=TRUE)
+  )
 
+for(i in 3:length(micro_aux)){
+  y <- micro_aux[i] |>  pull()
+  print("######################################")
+  print(paste0("Análise para: ",names(micro_aux[i])))
+  print("######################################")
+  criptorquida <- micro_aux[2] |>  pull() |> as.factor()
+  dic(criptorquida[!is.na(y)], y[!is.na(y)],mcomp = "tukey")
+  }
 
+```
+ 
 
 
 

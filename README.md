@@ -3,6 +3,33 @@
 
 # Análise Álysse e Lizandra
 
+## Citação do R
+
+``` r
+citation()
+#> 
+#> To cite R in publications use:
+#> 
+#>   R Core Team (2021). R: A language and environment for statistical
+#>   computing. R Foundation for Statistical Computing, Vienna, Austria.
+#>   URL https://www.R-project.org/.
+#> 
+#> A BibTeX entry for LaTeX users is
+#> 
+#>   @Manual{,
+#>     title = {R: A Language and Environment for Statistical Computing},
+#>     author = {{R Core Team}},
+#>     organization = {R Foundation for Statistical Computing},
+#>     address = {Vienna, Austria},
+#>     year = {2021},
+#>     url = {https://www.R-project.org/},
+#>   }
+#> 
+#> We have invested a lot of time and effort in creating R, please cite it
+#> when using it for data analysis. See also 'citation("pkgname")' for
+#> citing R packages.
+```
+
 ## Carregando pacotes
 
 ``` r
@@ -339,5 +366,247 @@ for(i in 4:length(macro)){
 #>   Niveis   Medias
 #> 1      0 417.2903
 #> 2      1 448.0000
+#> ------------------------------------------------------------------------
+```
+
+## Análise para MICRO
+
+``` r
+micro_aux <- micro |> 
+  group_by(nome, criptorquida) |> 
+  summarise(
+    al_ta_test = mean(al_ta_test, na.rm=TRUE),
+    diam_ts_test = mean(diam_ts_test, na.rm=TRUE),
+    ept_ts_test = mean(ept_ts_test, na.rm=TRUE),
+    diam_co_ep = mean(diam_co_ep, na.rm=TRUE),
+    ept_co_ep = mean(ept_co_ep, na.rm=TRUE),
+    diam_ca_ep = mean(diam_ca_ep, na.rm=TRUE),
+    ept_ca_ep = mean(ept_ca_ep, na.rm=TRUE)
+  )
+#> `summarise()` has grouped output by 'nome'. You can override using the `.groups` argument.
+for(i in 3:length(micro_aux)){
+  y <- micro_aux[i] |>  pull()
+  print("######################################")
+  print(paste0("Análise para: ",names(micro_aux[i])))
+  print("######################################")
+  criptorquida <- micro_aux[2] |>  pull() |> as.factor()
+  dic(criptorquida[!is.na(y)], y[!is.na(y)],mcomp = "tukey")
+  }
+#> [1] "######################################"
+#> [1] "Análise para: al_ta_test"
+#> [1] "######################################"
+#> ------------------------------------------------------------------------
+#> Quadro da analise de variancia
+#> ------------------------------------------------------------------------
+#>            GL      SQ     QM     Fc   Pr>Fc
+#> Tratamento  1  766662 766662 1.9448 0.17772
+#> Residuo    21 8278348 394207               
+#> Total      22 9045010                      
+#> ------------------------------------------------------------------------
+#> CV = 40.57 %
+#> 
+#> ------------------------------------------------------------------------
+#> Teste de normalidade dos residuos ( Shapiro-Wilk ) 
+#> Valor-p:  0.4530086 
+#> De acordo com o teste de Shapiro-Wilk a 5% de significancia, os residuos podem ser considerados normais.
+#> ------------------------------------------------------------------------
+#> 
+#> ------------------------------------------------------------------------
+#> Teste de homogeneidade de variancia 
+#> valor-p:  0.3214021 
+#> De acordo com o teste de bartlett a 5% de significancia, as variancias podem ser consideradas homogeneas.
+#> ------------------------------------------------------------------------
+#> 
+#> De acordo com o teste F, as medias nao podem ser consideradas diferentes.
+#> ------------------------------------------------------------------------
+#>   Niveis   Medias
+#> 1      0 1643.728
+#> 2      1 1201.094
+#> ------------------------------------------------------------------------
+#> [1] "######################################"
+#> [1] "Análise para: diam_ts_test"
+#> [1] "######################################"
+#> ------------------------------------------------------------------------
+#> Quadro da analise de variancia
+#> ------------------------------------------------------------------------
+#>            GL    SQ      QM     Fc      Pr>Fc
+#> Tratamento  1 25227 25227.4 24.333 6.2001e-05
+#> Residuo    22 22809  1036.8                  
+#> Total      23 48036                          
+#> ------------------------------------------------------------------------
+#> CV = 19.99 %
+#> 
+#> ------------------------------------------------------------------------
+#> Teste de normalidade dos residuos ( Shapiro-Wilk ) 
+#> Valor-p:  0.3668818 
+#> De acordo com o teste de Shapiro-Wilk a 5% de significancia, os residuos podem ser considerados normais.
+#> ------------------------------------------------------------------------
+#> 
+#> ------------------------------------------------------------------------
+#> Teste de homogeneidade de variancia 
+#> valor-p:  0.5697262 
+#> De acordo com o teste de bartlett a 5% de significancia, as variancias podem ser consideradas homogeneas.
+#> ------------------------------------------------------------------------
+#> 
+#> Teste de Tukey
+#> ------------------------------------------------------------------------
+#> Grupos Tratamentos Medias
+#> a     0   177.747 
+#>  b    1   97.9145 
+#> ------------------------------------------------------------------------
+#> [1] "######################################"
+#> [1] "Análise para: ept_ts_test"
+#> [1] "######################################"
+#> ------------------------------------------------------------------------
+#> Quadro da analise de variancia
+#> ------------------------------------------------------------------------
+#>            GL     SQ      QM     Fc      Pr>Fc
+#> Tratamento  1 2969.5 2969.45 42.153 1.5676e-06
+#> Residuo    22 1549.8   70.44                  
+#> Total      23 4519.2                          
+#> ------------------------------------------------------------------------
+#> CV = 25.83 %
+#> 
+#> ------------------------------------------------------------------------
+#> Teste de normalidade dos residuos ( Shapiro-Wilk ) 
+#> Valor-p:  0.804654 
+#> De acordo com o teste de Shapiro-Wilk a 5% de significancia, os residuos podem ser considerados normais.
+#> ------------------------------------------------------------------------
+#> 
+#> ------------------------------------------------------------------------
+#> Teste de homogeneidade de variancia 
+#> valor-p:  0.9519695 
+#> De acordo com o teste de bartlett a 5% de significancia, as variancias podem ser consideradas homogeneas.
+#> ------------------------------------------------------------------------
+#> 
+#> Teste de Tukey
+#> ------------------------------------------------------------------------
+#> Grupos Tratamentos Medias
+#> a     0   38.20254 
+#>  b    1   10.81317 
+#> ------------------------------------------------------------------------
+#> [1] "######################################"
+#> [1] "Análise para: diam_co_ep"
+#> [1] "######################################"
+#> ------------------------------------------------------------------------
+#> Quadro da analise de variancia
+#> ------------------------------------------------------------------------
+#>            GL     SQ     QM     Fc      Pr>Fc
+#> Tratamento  1 133220 133220 19.284 0.00025488
+#> Residuo    21 145074   6908                  
+#> Total      22 278294                         
+#> ------------------------------------------------------------------------
+#> CV = 22.69 %
+#> 
+#> ------------------------------------------------------------------------
+#> Teste de normalidade dos residuos ( Shapiro-Wilk ) 
+#> Valor-p:  0.2686289 
+#> De acordo com o teste de Shapiro-Wilk a 5% de significancia, os residuos podem ser considerados normais.
+#> ------------------------------------------------------------------------
+#> 
+#> ------------------------------------------------------------------------
+#> Teste de homogeneidade de variancia 
+#> valor-p:  0.9353295 
+#> De acordo com o teste de bartlett a 5% de significancia, as variancias podem ser consideradas homogeneas.
+#> ------------------------------------------------------------------------
+#> 
+#> Teste de Tukey
+#> ------------------------------------------------------------------------
+#> Grupos Tratamentos Medias
+#> a     0   406.4212 
+#>  b    1   221.908 
+#> ------------------------------------------------------------------------
+#> [1] "######################################"
+#> [1] "Análise para: ept_co_ep"
+#> [1] "######################################"
+#> ------------------------------------------------------------------------
+#> Quadro da analise de variancia
+#> ------------------------------------------------------------------------
+#>            GL     SQ      QM     Fc      Pr>Fc
+#> Tratamento  1 1270.8 1270.84 18.532 0.00031337
+#> Residuo    21 1440.0   68.57                  
+#> Total      22 2710.9                          
+#> ------------------------------------------------------------------------
+#> CV = 16.52 %
+#> 
+#> ------------------------------------------------------------------------
+#> Teste de normalidade dos residuos ( Shapiro-Wilk ) 
+#> Valor-p:  0.6354971 
+#> De acordo com o teste de Shapiro-Wilk a 5% de significancia, os residuos podem ser considerados normais.
+#> ------------------------------------------------------------------------
+#> 
+#> ------------------------------------------------------------------------
+#> Teste de homogeneidade de variancia 
+#> valor-p:  0.8912152 
+#> De acordo com o teste de bartlett a 5% de significancia, as variancias podem ser consideradas homogeneas.
+#> ------------------------------------------------------------------------
+#> 
+#> Teste de Tukey
+#> ------------------------------------------------------------------------
+#> Grupos Tratamentos Medias
+#> a     0   54.03038 
+#>  b    1   36.009 
+#> ------------------------------------------------------------------------
+#> [1] "######################################"
+#> [1] "Análise para: diam_ca_ep"
+#> [1] "######################################"
+#> ------------------------------------------------------------------------
+#> Quadro da analise de variancia
+#> ------------------------------------------------------------------------
+#>            GL      SQ     QM    Fc   Pr>Fc
+#> Tratamento  1  297750 297750 1.881 0.18542
+#> Residuo    20 3165934 158297              
+#> Total      21 3463684                     
+#> ------------------------------------------------------------------------
+#> CV = 35.93 %
+#> 
+#> ------------------------------------------------------------------------
+#> Teste de normalidade dos residuos ( Shapiro-Wilk ) 
+#> Valor-p:  0.2936929 
+#> De acordo com o teste de Shapiro-Wilk a 5% de significancia, os residuos podem ser considerados normais.
+#> ------------------------------------------------------------------------
+#> 
+#> ------------------------------------------------------------------------
+#> Teste de homogeneidade de variancia 
+#> valor-p:  0.6267435 
+#> De acordo com o teste de bartlett a 5% de significancia, as variancias podem ser consideradas homogeneas.
+#> ------------------------------------------------------------------------
+#> 
+#> De acordo com o teste F, as medias nao podem ser consideradas diferentes.
+#> ------------------------------------------------------------------------
+#>   Niveis    Medias
+#> 1      0 1162.2294
+#> 2      1  860.6019
+#> ------------------------------------------------------------------------
+#> [1] "######################################"
+#> [1] "Análise para: ept_ca_ep"
+#> [1] "######################################"
+#> ------------------------------------------------------------------------
+#> Quadro da analise de variancia
+#> ------------------------------------------------------------------------
+#>            GL     SQ     QM      Fc   Pr>Fc
+#> Tratamento  1  13.29 13.285 0.47945 0.49663
+#> Residuo    20 554.18 27.709                
+#> Total      21 567.47                       
+#> ------------------------------------------------------------------------
+#> CV = 28.89 %
+#> 
+#> ------------------------------------------------------------------------
+#> Teste de normalidade dos residuos ( Shapiro-Wilk ) 
+#> Valor-p:  0.6022127 
+#> De acordo com o teste de Shapiro-Wilk a 5% de significancia, os residuos podem ser considerados normais.
+#> ------------------------------------------------------------------------
+#> 
+#> ------------------------------------------------------------------------
+#> Teste de homogeneidade de variancia 
+#> valor-p:  0.3391196 
+#> De acordo com o teste de bartlett a 5% de significancia, as variancias podem ser consideradas homogeneas.
+#> ------------------------------------------------------------------------
+#> 
+#> De acordo com o teste F, as medias nao podem ser consideradas diferentes.
+#> ------------------------------------------------------------------------
+#>   Niveis   Medias
+#> 1      0 18.58904
+#> 2      1 16.57425
 #> ------------------------------------------------------------------------
 ```
