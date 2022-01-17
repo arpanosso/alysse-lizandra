@@ -35,12 +35,16 @@ library(ExpDes.pt)
 macro<- read_excel("data/Analise morfo macro.xlsx",na = "NA") |> 
   janitor::clean_names()
 glimpse(macro)
+macro <- macro |> 
+  filter(nome != 18)
 ```
 
 ```{r,message=FALSE,error=FALSE,warning=FALSE}
 micro<- read_excel("data/Analise morfo micro.xlsx",na = "NA")|> 
   janitor::clean_names()
 glimpse(micro)
+micro <- micro |> 
+  filter(nome != 18)
 ```
 
 
